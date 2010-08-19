@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'parse_tree'
 require 'ruby2ruby'
-
-require 'pp'
+require 'erb'
 
 class EntityFinder
   attr_accessor :found
@@ -33,10 +32,17 @@ class Sinatra2Rails
   end
 
   def migrate_controllers
+    @actions = []
     finder.find_entities(@sexp_array, :iter).each do |elem|
-      puts "---"
-      puts ruby2ruby.process(elem[3])
+      @actions << "\n  def \n"
+      ruby2ruby.process(elem[3]).each_line { |line| @actions << "    #{line}" }
+      @actions << "  end\n  "
     end
+    rhtml = ERB.new(File.new("templates/sinatra_controller.erb").read)
+    html_path = "test_rails_app/sinatra_controller.rb"
+    html_file = File.new(html_path, "w")
+    html_file.write(rhtml.result(binding))
+    html_file.close
   end
 
   def migrate_models

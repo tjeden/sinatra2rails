@@ -1,3 +1,4 @@
+test_rails_app/*
 Makefile
 .DS_Store
 .idea

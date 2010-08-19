@@ -17,6 +17,4 @@ get '/dupa' do
   puts 12**2
 end
 
-post '/create' do
-  "123".to_i
-end
+
