@@ -1,0 +1,13 @@
+= Sinatra2Rails
+
+A converter of Sinatra application to Rails. Because every small and simple app grows to the point of not being small and simple anymore.
+
+== License
+
+Ruby license
+
+== Authors
+
+* tjeden
+* tomash
+
