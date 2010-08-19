@@ -6,7 +6,7 @@ class SinatraController < ApplicationController
     puts("haha")
   end
   
-  def 
+  def dupa
     haml(:dupa)
     puts((12 ** 2))
   end

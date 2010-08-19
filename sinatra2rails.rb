@@ -3,6 +3,8 @@ require 'parse_tree'
 require 'ruby2ruby'
 require 'erb'
 
+require 'pp'
+
 class EntityFinder
   attr_accessor :found
   
@@ -34,7 +36,8 @@ class Sinatra2Rails
   def migrate_controllers
     @actions = []
     finder.find_entities(@sexp_array, :iter).each do |elem|
-      @actions << "\n  def \n"
+      action_name = elem[1][3][1][1].gsub(/\//,'')
+      @actions << "\n  def #{action_name}\n"
       ruby2ruby.process(elem[3]).each_line { |line| @actions << "    #{line}" }
       @actions << "  end\n  "
     end
