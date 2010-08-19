@@ -17,4 +17,3 @@ get '/dupa' do
   puts 12**2
 end
 
-

@@ -48,6 +48,19 @@ class Sinatra2Rails
     html_file.close
   end
 
+  def migrate_routes
+    @routes = []
+    finder.find_entities(@sexp_array, :iter).each do |elem|
+      action_name = elem[1][3][1][1]
+      @routes << "  match \"#{action_name}\" => \"sinatra##{action_name.gsub(/\//,'')}\"\n"
+    end
+    rhtml = ERB.new(File.new("templates/routes.erb").read)
+    html_path = "test_rails_app/routes.rb"
+    html_file = File.new(html_path, "w")
+    html_file.write(rhtml.result(binding))
+    html_file.close
+  end
+
   def migrate_models
   end
 
